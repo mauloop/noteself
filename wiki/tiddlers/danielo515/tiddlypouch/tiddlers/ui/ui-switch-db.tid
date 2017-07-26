@@ -1,0 +1,60 @@
+caption: PouchDB
+created: 20170723202815268
+creator: mauloop
+modified: 20170725150148698
+modifier: mauloop
+revision: 10-ddb7b6432722c79f679f8530ba258d18
+tags: $:/tags/SideBar
+title: $:/mau/CustomNS/ui/switch-db
+type: text/vnd.tiddlywiki
+
+\define switch-db()
+<$action-sendmessage $message="tm-TP-config-selectedDb" $param={{$:/temp/tiddlypouch/selected-db}}/>
+<$action-deletetiddler $tiddler="$:/temp/tiddlypouch/selected-db"/>
+<$action-sendmessage $message="tm-TP-config-updateSelectedDB"/>
+\end
+
+<div>
+Change notebook: 
+<$select tiddler="$:/temp/tiddlypouch/selected-db" default={{$:/plugins/danielo515/tiddlypouch/config/config_database##selectedDbId}} actions=<<switch-db>> >
+<$list filter="[list[$:/plugins/danielo515/tiddlypouch/config/database_names]]" variable="db-name">
+<option><$text text=<<db-name>>/></option>
+</$list>
+</$select><br>
+,,''Note:'' selecting a different notebook will cause NoteSelf to be reloaded,,
+</div>
+
+<!-- version 1
+\define switch-db()
+<$action-sendmessage $message="tm-TP-config-selectedDb" $param={{$:/temp/tiddlypouch/selected-db}}/>
+<$action-deletetiddler $tiddler="$:/temp/tiddlypouch/selected-db"/>
+<$action-sendmessage $message="tm-TP-config-updateSelectedDB"/>
+\end
+
+<div>
+Change notebook: 
+<$select tiddler="$:/temp/tiddlypouch/selected-db" default={{$:/plugins/danielo515/tiddlypouch/config/config_database##selectedDbId}} actions=<<switch-db>> >
+<$list filter="[list[$:/plugins/danielo515/tiddlypouch/config/database_names]]" variable="db-name">
+<option><$text text=<<db-name>>/></option>
+</$list>
+</$select><br>
+,,''Note:'' selecting a different NoteSelf notebook will cause the window to be reloaded,,
+</div>
+end version 1 -->
+
+<!-- version 2
+\define switch-db()
+<$action-sendmessage $message="tm-browser-refresh"/>
+<$action-sendmessage $message="tm-TP-config-switchDB"/>
+\end
+
+<div>
+Change notebook: 
+<$select tiddler="$:/plugins/danielo515/tiddlypouch/config/config_database" index="selectedDbId" default="MyNotebook" actions=<<switch-db>> >
+<$list filter="[list[$:/plugins/danielo515/tiddlypouch/config/database_names]]" variable="db-name">
+<option><$text text=<<db-name>>/></option>
+</$list>
+</$select><br>
+,,''Note:'' selecting a different NoteSelf notebook will cause the window to be reloaded,,
+</div>
+end version 2 -->
